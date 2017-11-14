@@ -10,6 +10,8 @@
 
     <ul class="pure-menu-list">
       <% if logged_in? %>
+        <%= ui_side_menu_link("Cards", cards_path, active: cards_section?) %>
+
         <%= yield(:side_menu) if content_for?(:side_menu) %>
 
         <%= ui_side_menu_link("New card", new_card_path, active: new_card_section?, separated: true) %>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'auth/google/error' => 'sessions#error'
   delete "/logout" => "sessions#destroy", as: 'logout'
 
-  resources :cards, only: [:show, :new, :create, :edit, :update]
+  resources :cards, only: [:index, :show, :new, :create, :edit, :update]
 
   root to: "home#show"
 end

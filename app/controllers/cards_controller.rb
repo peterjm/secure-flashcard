@@ -1,8 +1,8 @@
 class CardsController < AuthenticatedController
 
-  #def index
-  #  @cards = Card.all
-  #end
+  def index
+    @cards = Card.all
+  end
 
   def show
     @card = Card.find(params.require(:id))
