@@ -23,3 +23,7 @@
 .byebug_history
 
 /.env
+
+/config/server.crt
+/config/server.csr
+/config/server.key
