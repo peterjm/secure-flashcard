@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113213047) do
+ActiveRecord::Schema.define(version: 20171114204856) do
 
   create_table "cards", force: :cascade do |t|
     t.string "question", null: false
     t.string "answer_encrypted", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_successful_attempt_at"
+    t.index ["last_successful_attempt_at"], name: "index_cards_on_last_successful_attempt_at"
   end
 
 end

@@ -8,8 +8,15 @@
   <%= ui_content_section do %>
     <%= ui_form(path: card_attempts_path(@card), layout: ComponentHelper::FORM_ALIGNED) do |f| %>
       <%= ui_password_field(name: "attempt", label: "Answer") %>
-
       <%= ui_submit("Try") %>
     <% end %>
+
+    <p>
+      <% if @card.last_successful_attempt_at %>
+        Last successful attempt was <%= distance_of_time_in_words(Time.now, @card.last_successful_attempt_at) %> ago
+      <% else %>
+        Never successfully attempted
+      <% end %>
+    </p>
   <% end %>
 <% end %>
