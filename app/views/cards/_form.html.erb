@@ -1,0 +1,6 @@
+<%= ui_form(object: @card, layout: ComponentHelper::FORM_ALIGNED) do |f| %>
+  <%= ui_text_field(name: "question", label: "Question") %>
+  <%= ui_password_field(name: "answer", label: "Answer") %>
+
+  <%= ui_submit("Submit") %>
+<% end %>

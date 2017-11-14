@@ -1,0 +1,11 @@
+<% set_page_title @card.question %>
+
+<% content_for :side_menu do %>
+  <%= ui_side_menu_link('Edit this card', edit_card_path(@card), separated: true) %>
+<% end %>
+
+<%= ui_content_container do %>
+  <%= ui_content_section do %>
+    trial here
+  <% end %>
+<% end %>

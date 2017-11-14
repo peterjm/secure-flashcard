@@ -51,6 +51,16 @@ module ComponentHelper
     end
   end
 
+  def ui_password_field(name:, value: nil, label: nil, html_class: "")
+    ui_field_with_label(label, name) do
+      if current_form
+        current_form.password_field(name, class: html_class)
+      else
+        password_field_tag(name, value, class: html_class)
+      end
+    end
+  end
+
   def ui_text_field(name:, value: nil, label: nil, placeholder: nil, html_class: "")
     ui_field_with_label(label, name) do
       if current_form

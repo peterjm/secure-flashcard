@@ -92,7 +92,7 @@ body {
   width: 100%;
 }
 
-input[type="text"], input[type="search"], textarea, select {
+input[type="text"], input[type="password"], input[type="search"], textarea, select {
   width: 100%;
 }
 

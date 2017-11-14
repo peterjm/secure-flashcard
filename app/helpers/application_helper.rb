@@ -21,4 +21,8 @@ module ApplicationHelper
     @page_title = title
     @page_heading = title if heading
   end
+
+  def new_card_section?
+    controller_name == 'cards' && action_name == 'new'
+  end
 end

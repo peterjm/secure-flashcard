@@ -12,6 +12,8 @@
       <% if logged_in? %>
         <%= yield(:side_menu) if content_for?(:side_menu) %>
 
+        <%= ui_side_menu_link("New card", new_card_path, active: new_card_section?, separated: true) %>
+
         <%= ui_side_menu_link("Sign out", logout_path, separated: true, link_params: { method: :delete }) %>
       <% end %>
     </ul>
