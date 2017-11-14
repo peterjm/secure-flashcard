@@ -1,0 +1,17 @@
+<% content_for :application_content do %>
+  <div id="layout">
+    <div id="main">
+      <% if page_heading %>
+        <div class="header">
+          <h1><%= page_heading %></h1>
+        </div>
+      <% end %>
+
+      <div class="content">
+        <%= content_for?(:main_content) ? yield(:main_content) : yield %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>
