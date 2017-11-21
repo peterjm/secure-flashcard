@@ -52,8 +52,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # end
 #
 
-# On development, run ssl server on port 3001
-if ENV.fetch("RAILS_ENV") == 'development'
+if ENV.fetch("RAILS_ENV") == 'development' || ENV.fetch("RAILS_ENV") == 'production'
   ssl_bind '127.0.0.1', '3001', {
     key: ENV.fetch("SSL_KEY_PATH"),
     cert: ENV.fetch("SSL_CERT_PATH"),
