@@ -23,6 +23,7 @@
 .byebug_history
 
 /.env
+/.env.production
 
 /config/server.crt
 /config/server.csr
