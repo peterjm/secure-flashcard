@@ -51,53 +51,55 @@ module ComponentHelper
     end
   end
 
-  def ui_password_field(name:, value: nil, label: nil, html_class: "")
+  def ui_password_field(name:, value: nil, label: nil, html_options: {})
     ui_field_with_label(label, name) do
       if current_form
-        current_form.password_field(name, class: html_class)
+        current_form.password_field(name, html_options)
       else
-        password_field_tag(name, value, class: html_class)
+        password_field_tag(name, value, html_options)
       end
     end
   end
 
-  def ui_text_field(name:, value: nil, label: nil, placeholder: nil, html_class: "")
+  def ui_text_field(name:, value: nil, label: nil, html_options: {})
     ui_field_with_label(label, name) do
       if current_form
-        current_form.text_field(name, placeholder: placeholder, class: html_class)
+        current_form.text_field(name, html_options)
       else
-        text_field_tag(name, value, placeholder: placeholder, class: html_class)
+        text_field_tag(name, value, html_options)
       end
     end
   end
 
-  def ui_text_area(name:, value: nil, label: nil, placeholder: nil, html_class: "")
+  def ui_text_area(name:, value: nil, label: nil, html_options: {})
     ui_field_with_label(label, name) do
       if current_form
-        current_form.text_area(name, placeholder: placeholder, class: html_class)
+        current_form.text_area(name, html_options)
       else
-        text_area(name, value, placeholder: placeholder, class: html_class)
+        text_area(name, value, html_options)
       end
     end
   end
 
-  def ui_select(name:, options:, value: nil, label: nil, include_blank: nil, html_class: "")
+  def ui_select(name:, options:, value: nil, label: nil, include_blank: nil, html_options: {})
     ui_field_with_label(label, name) do
       if current_form
-        current_form.select(name, options, { include_blank: include_blank }, class: html_class)
+        current_form.select(name, options, { include_blank: include_blank }, html_options)
       else
         options = options_for_select(options, value)
-        select_tag(name, options, include_blank: include_blank, class: html_class)
+        select_tag(name, options, html_options.merge(include_blank: include_blank))
       end
     end
   end
 
-  def ui_search_field(name:, value: nil, label: nil, placeholder: nil, html_class: "")
+  def ui_search_field(name:, value: nil, label: nil, html_options: {})
+    html_options = html_options.merge(class: ["pure-input-rounded", html_options[:class]].compact.join(" "))
+
     ui_field_with_label(label, name) do
       if current_form
-        current_form.search_field(name, placeholder: placeholder, class: "pure-input-rounded #{html_class}")
+        current_form.search_field(name, html_options)
       else
-        search_field_tag(name, value, placeholder: placeholder, class: "pure-input-rounded #{html_class}")
+        search_field_tag(name, value, html_options)
       end
     end
   end
