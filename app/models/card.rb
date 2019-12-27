@@ -1,5 +1,4 @@
 class Card < ApplicationRecord
-
   ATTEMPT_THRESHOLD = 1.hour
 
   validates :question, presence: true
@@ -21,5 +20,4 @@ class Card < ApplicationRecord
   def mark_successful_attempt
     update!(last_successful_attempt_at: Time.now)
   end
-
 end
