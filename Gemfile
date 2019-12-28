@@ -12,6 +12,10 @@ group :production do
   gem 'pg'
 end
 
+group :development do
+  gem 'listen' # needed for puma in development
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'dotenv-rails'
