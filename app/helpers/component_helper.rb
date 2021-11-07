@@ -2,13 +2,13 @@ module ComponentHelper
   FORM_ALIGNED = 'aligned'
   FORM_COMPACT = 'compact'
 
-  def ui_button(text, path, size: 'normal')
+  def ui_button(text, path, size: 'normal', method: :get)
     button_class = case size
     when 'xlarge'
       'button-xlarge'
     end
 
-    link_to(text, path, class: "pure-button pure-button-primary #{button_class}")
+    link_to(text, path, method: method, class: "pure-button pure-button-primary #{button_class}")
   end
 
   def ui_form(path: nil, layout: nil, method: :post, object: nil, &block)
