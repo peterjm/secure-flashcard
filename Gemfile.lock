@@ -82,7 +82,6 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
-    execjs (2.8.1)
     faraday (1.9.3)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -113,6 +112,9 @@ GEM
     hashie (5.0.0)
     i18n (1.9.1)
       concurrent-ruby (~> 1.0)
+    importmap-rails (1.0.2)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.5.11)
     io-wait (0.2.1)
     irb (1.4.1)
@@ -221,16 +223,16 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    stimulus-rails (1.0.2)
+      railties (>= 6.0.0)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (1.0.1)
+      actionpack (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -253,6 +255,7 @@ DEPENDENCIES
   debug
   dotenv-rails
   font-awesome-rails
+  importmap-rails
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg
@@ -260,9 +263,9 @@ DEPENDENCIES
   rails (~> 7.0)
   sprockets-rails
   sqlite3
-  turbolinks
+  stimulus-rails
+  turbo-rails
   tzinfo-data
-  uglifier
   web-console
 
 RUBY VERSION

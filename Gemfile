@@ -4,11 +4,13 @@ ruby '3.1.0'
 gem 'rails', '~> 7.0'
 
 gem 'puma'
-gem 'uglifier'
-gem 'turbolinks'
 gem 'bcrypt'
 gem 'bootsnap', require: false
+
 gem "sprockets-rails"
+gem "importmap-rails"
+gem "turbo-rails"
+gem "stimulus-rails"
 
 group :production do
   gem 'pg'

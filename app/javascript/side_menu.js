@@ -1,5 +1,5 @@
 (function (window, document) {
-  document.addEventListener("turbolinks:load", function() {
+  document.addEventListener("turbo:load", function() {
     var layout   = document.getElementById('layout'),
         menu     = document.getElementById('menu'),
         menuLink = document.getElementById('menuLink'),
