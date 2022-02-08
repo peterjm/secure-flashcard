@@ -3,6 +3,8 @@ ruby '3.1.0'
 
 gem 'rails', '~> 6.1'
 gem 'net-smtp', require: false # temp until upgrade to Rails 7.0.1
+gem 'net-imap', require: false # temp until upgrade to Rails 7.0.1
+gem 'net-pop', require: false # temp until upgrade to Rails 7.0.1
 
 gem 'puma'
 gem 'uglifier'

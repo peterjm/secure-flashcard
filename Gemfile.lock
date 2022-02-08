@@ -123,6 +123,14 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.2)
       io-wait
       timeout
@@ -206,6 +214,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
+    strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
     turbolinks (5.2.1)
@@ -233,6 +242,8 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-rails
   listen
+  net-imap
+  net-pop
   net-smtp
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
