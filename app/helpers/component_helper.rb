@@ -2,18 +2,20 @@ module ComponentHelper
   FORM_ALIGNED = 'aligned'
   FORM_COMPACT = 'compact'
 
-  def ui_button(text, path, size: 'normal', method: :get)
+  def ui_button(text, path, size: 'normal', method: nil, turbo: nil)
     button_class = case size
     when 'xlarge'
       'button-xlarge'
     end
 
-    link_to(
-      text,
-      path,
-      data: { turbo_method: method },
-      class: "pure-button pure-button-primary #{button_class}"
-    )
+    link_params = { class: "pure-button pure-button-primary #{button_class}" }
+    if turbo
+      link_params[:data] = { turbo_method: method }
+    else
+      link_params[:data] = { turbo: false }
+      link_params[:method] = method
+    end
+    button_to(text, path, **link_params)
   end
 
   def ui_form(path: nil, layout: nil, method: :post, object: nil, &block)
