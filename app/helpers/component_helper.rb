@@ -8,7 +8,12 @@ module ComponentHelper
       'button-xlarge'
     end
 
-    link_to(text, path, method: method, class: "pure-button pure-button-primary #{button_class}")
+    link_to(
+      text,
+      path,
+      data: { turbo_method: method },
+      class: "pure-button pure-button-primary #{button_class}"
+    )
   end
 
   def ui_form(path: nil, layout: nil, method: :post, object: nil, &block)
@@ -163,13 +168,19 @@ module ComponentHelper
     end
   end
 
-  def ui_side_menu_link(text, path, active: false, separated: false, disabled: false, link_params: {})
+  def ui_side_menu_link(text, path, active: false, separated: false, disabled: false, method: nil)
     li_classes = ['pure-menu-item']
     li_classes << 'pure-menu-selected' if active
     li_classes << 'pure-menu-disabled' if disabled
     li_classes << 'menu-item-divided' if separated
+
+    link_params = {
+      class: 'pure-menu-link',
+      method: method
+    }.compact
+
     content_tag :li, class: li_classes do
-      link_to text, path, link_params.merge(class: 'pure-menu-link')
+      link_to text, path, link_params
     end
   end
 

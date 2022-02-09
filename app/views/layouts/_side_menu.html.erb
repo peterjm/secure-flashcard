@@ -16,14 +16,7 @@
 
         <%= ui_side_menu_link("New card", new_card_path, active: new_card_section?, separated: true) %>
 
-        <%=
-          ui_side_menu_link(
-            "Sign out",
-            logout_path,
-            separated: true,
-            link_params: { data: { turbo_method: :delete } }
-          )
-        %>
+        <%= ui_side_menu_link("Sign out", logout_path, separated: true, method: :delete) %>
       <% end %>
     </ul>
   </div>
