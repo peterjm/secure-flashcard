@@ -2,10 +2,10 @@ OmniAuth.config.logger = Rails.logger
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
-    Rails.application.credentials.google.client_id,
-    Rails.application.credentials.google.client_secret,
+    Rails.application.credentials.google&.client_id,
+    Rails.application.credentials.google&.client_secret,
     name: 'google',
-    login_hint: Rails.application.credentials.google.allowed_account
+    login_hint: Rails.application.credentials.google&.allowed_account
 
   on_failure do |env|
      strategy = env['omniauth.strategy'].name
