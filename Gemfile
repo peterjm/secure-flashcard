@@ -22,7 +22,6 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'dotenv-rails'
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 

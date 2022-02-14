@@ -2,7 +2,7 @@ class Authenticator
   class_attribute :google_account
 
   def self.google_account
-    @google_account || Rails.application.secrets.google_account
+    @google_account || Rails.application.credentials.google.allowed_account
   end
 
   attr_reader :session
