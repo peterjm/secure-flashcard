@@ -17,6 +17,8 @@ group :production do
 end
 
 group :development do
+  gem "rubocop"
+  gem "rubocop-rails"
   gem "web-console"
 end
 
