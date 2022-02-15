@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AuthenticatedController < ApplicationController
-  layout 'main'
+  layout "main"
 
   before_action :require_login
 

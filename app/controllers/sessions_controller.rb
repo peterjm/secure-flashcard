@@ -9,16 +9,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    email = request.env["omniauth.auth"]['info']['email']
+    email = request.env["omniauth.auth"]["info"]["email"]
     if log_in!(email)
       redirect_to_return_path
     else
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
   def error
-    render 'new', status: :unprocessable_entity
+    render "new", status: :unprocessable_entity
   end
 
   def destroy

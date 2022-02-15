@@ -7,7 +7,7 @@ class Card < ApplicationRecord
   validates :answer_encrypted, presence: true
 
   def self.find_for_attempt
-    Card.where('last_successful_attempt_at IS NULL OR last_successful_attempt_at < ?', ATTEMPT_THRESHOLD.ago).sample
+    Card.where("last_successful_attempt_at IS NULL OR last_successful_attempt_at < ?", ATTEMPT_THRESHOLD.ago).sample
   end
 
   def answer

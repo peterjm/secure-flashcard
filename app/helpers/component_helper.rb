@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module ComponentHelper
-  FORM_ALIGNED = 'aligned'
-  FORM_COMPACT = 'compact'
+  FORM_ALIGNED = "aligned"
+  FORM_COMPACT = "compact"
 
-  def ui_button(text, path, size: 'normal', method: nil, turbo: nil)
+  def ui_button(text, path, size: "normal", method: nil, turbo: nil)
     button_class = case size
-    when 'xlarge'
-      'button-xlarge'
+    when "xlarge"
+      "button-xlarge"
     end
 
     link_params = { class: "pure-button pure-button-primary #{button_class}" }
@@ -25,9 +25,9 @@ module ComponentHelper
 
     form_class = case layout
     when FORM_ALIGNED
-      'form-aligned'
+      "form-aligned"
     when FORM_COMPACT
-      'form-compact'
+      "form-compact"
     end
 
     form_content = if object
@@ -173,13 +173,13 @@ module ComponentHelper
   end
 
   def ui_side_menu_link(text, path, active: false, separated: false, disabled: false, method: nil)
-    li_classes = ['pure-menu-item']
-    li_classes << 'pure-menu-selected' if active
-    li_classes << 'pure-menu-disabled' if disabled
-    li_classes << 'menu-item-divided' if separated
+    li_classes = ["pure-menu-item"]
+    li_classes << "pure-menu-selected" if active
+    li_classes << "pure-menu-disabled" if disabled
+    li_classes << "menu-item-divided" if separated
 
     link_params = {
-      class: 'pure-menu-link',
+      class: "pure-menu-link",
       method: method
     }.compact
 
@@ -193,20 +193,20 @@ module ComponentHelper
       small: grid_size_small,
       big: grid_size_big
     })
-    content = content_tag(:div, class: 'pure-g', &block)
+    content = content_tag(:div, class: "pure-g", &block)
     current_grid_size_stack.pop
     content
   end
 
   def ui_editable_content_section(title:, object:, field:, &block)
-    render(layout: 'shared/inplace_editor', locals: { title: title, object: object, field: field }, &block)
+    render(layout: "shared/inplace_editor", locals: { title: title, object: object, field: field }, &block)
   end
 
   def ui_content_title(title=nil, &block)
     if block_given?
-      content_tag(:h2, class: 'content-subhead', &block)
+      content_tag(:h2, class: "content-subhead", &block)
     else
-      content_tag(:h2, title, class: 'content-subhead')
+      content_tag(:h2, title, class: "content-subhead")
     end
   end
 
@@ -219,7 +219,7 @@ module ComponentHelper
 
     grid_classes = [
       grid_class(grid_size_small, current_grid_sizes[:small]),
-      grid_class(grid_size_big, current_grid_sizes[:big], 'sm')
+      grid_class(grid_size_big, current_grid_sizes[:big], "sm")
     ].uniq
 
     content_tag(:div, content, class: grid_classes)
