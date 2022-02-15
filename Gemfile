@@ -5,14 +5,14 @@ ruby "3.1.0"
 
 gem "rails", "~> 7.0"
 
-gem "puma"
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "puma"
 
-gem "sprockets-rails"
 gem "importmap-rails"
-gem "turbo-rails"
+gem "sprockets-rails"
 gem "stimulus-rails"
+gem "turbo-rails"
 
 group :production do
   gem "pg"
@@ -25,12 +25,12 @@ group :development do
 end
 
 group :development, :test do
+  gem "debug", platforms: %i[mri mingw x64_mingw]
   gem "sqlite3"
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "font-awesome-rails"
 gem "omniauth-google-oauth2"

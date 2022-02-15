@@ -10,12 +10,12 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     login_hint: Rails.application.credentials.google&.allowed_account
 
   on_failure do |env|
-     strategy = env["omniauth.strategy"].name
-     params = {
-       message: env["omniauth.error.type"],
-       origin: env["omniauth.origin"]
-     }
-     new_path = "#{env['omniauth.error.strategy'].path_prefix}/#{strategy}/error?#{params.to_query}"
-     Rack::Response.new(["302 Moved"], 302, "Location" => new_path).finish
-   end
+    strategy = env["omniauth.strategy"].name
+    params = {
+      message: env["omniauth.error.type"],
+      origin: env["omniauth.origin"],
+    }
+    new_path = "#{env["omniauth.error.strategy"].path_prefix}/#{strategy}/error?#{params.to_query}"
+    Rack::Response.new(["302 Moved"], 302, "Location" => new_path).finish
+  end
 end
