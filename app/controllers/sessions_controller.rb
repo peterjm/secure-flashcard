@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   before_action only: [:new, :create, :error], if: :logged_in? do
     redirect_to root_path

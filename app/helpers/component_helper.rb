@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ComponentHelper
   FORM_ALIGNED = 'aligned'
   FORM_COMPACT = 'compact'

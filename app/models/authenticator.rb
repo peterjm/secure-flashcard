@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Authenticator
   class_attribute :google_account
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Card < ApplicationRecord
   ATTEMPT_THRESHOLD = 1.hour
 
