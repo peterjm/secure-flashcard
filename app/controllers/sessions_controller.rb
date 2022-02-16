@@ -1,22 +1,23 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
-  before_action only: [:new, :create, :error], if: :logged_in? do
+  before_action only: %i[new create error], if: :logged_in? do
     redirect_to root_path
   end
 
-  def new
-  end
+  def new; end
 
   def create
-    email = request.env["omniauth.auth"]['info']['email']
+    email = request.env["omniauth.auth"]["info"]["email"]
     if log_in!(email)
       redirect_to_return_path
     else
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
   def error
-    render 'new', status: :unprocessable_entity
+    render "new", status: :unprocessable_entity
   end
 
   def destroy
@@ -30,5 +31,4 @@ class SessionsController < ApplicationController
     "/auth/google"
   end
   helper_method :auth_path
-
 end

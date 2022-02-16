@@ -1,11 +1,14 @@
-module ComponentHelper
-  FORM_ALIGNED = 'aligned'
-  FORM_COMPACT = 'compact'
+# frozen_string_literal: true
 
-  def ui_button(text, path, size: 'normal', method: nil, turbo: nil)
+# rubocop:disable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists
+module ComponentHelper
+  FORM_ALIGNED = "aligned"
+  FORM_COMPACT = "compact"
+
+  def ui_button(text, path, size: "normal", method: nil, turbo: nil)
     button_class = case size
-    when 'xlarge'
-      'button-xlarge'
+    when "xlarge"
+      "button-xlarge"
     end
 
     link_params = { class: "pure-button pure-button-primary #{button_class}" }
@@ -23,9 +26,9 @@ module ComponentHelper
 
     form_class = case layout
     when FORM_ALIGNED
-      'form-aligned'
+      "form-aligned"
     when FORM_COMPACT
-      'form-compact'
+      "form-compact"
     end
 
     form_content = if object
@@ -111,43 +114,43 @@ module ComponentHelper
     end
   end
 
-  def ui_field_with_label(label, name, &block)
+  def ui_field_with_label(label, name, &)
     if label
-      ui_label_wrapper { ui_label(label, name) } + ui_field_wrapper(&block)
+      ui_label_wrapper { ui_label(label, name) } + ui_field_wrapper(&)
     else
-      ui_field_wrapper(&block)
+      ui_field_wrapper(&)
     end
   end
 
   def ui_label(label, name)
-    if label
-      if current_form
-        current_form.label(name)
-      else
-        label_tag(name, label)
-      end
+    return unless label
+
+    if current_form
+      current_form.label(name)
+    else
+      label_tag(name, label)
     end
   end
 
-  def ui_label_wrapper(&block)
+  def ui_label_wrapper(&)
     case current_form_layout
     when FORM_ALIGNED
       ui_content_section(grid_size_big: 1) do
-        content_tag(:div, class: "form-label", &block)
+        content_tag(:div, class: "form-label", &)
       end
     else
-      content_tag(:div, class: "form-label", &block)
+      content_tag(:div, class: "form-label", &)
     end
   end
 
-  def ui_field_wrapper(&block)
+  def ui_field_wrapper(&)
     case current_form_layout
     when FORM_ALIGNED
       ui_content_section(grid_size_big: 3) do
-        content_tag(:div, class: "form-field", &block)
+        content_tag(:div, class: "form-field", &)
       end
     else
-      content_tag(:div, class: "form-field", &block)
+      content_tag(:div, class: "form-field", &)
     end
   end
 
@@ -164,21 +167,22 @@ module ComponentHelper
   def ui_submit_wrapper(&block)
     case current_form_layout
     when FORM_ALIGNED
-      ui_content_section(grid_size_big: 1){} + ui_content_section(grid_size_big: 3, &block)
+      empty_block = -> {}
+      ui_content_section(grid_size_big: 1, &empty_block) + ui_content_section(grid_size_big: 3, &block)
     else
       block.call
     end
   end
 
   def ui_side_menu_link(text, path, active: false, separated: false, disabled: false, method: nil)
-    li_classes = ['pure-menu-item']
-    li_classes << 'pure-menu-selected' if active
-    li_classes << 'pure-menu-disabled' if disabled
-    li_classes << 'menu-item-divided' if separated
+    li_classes = ["pure-menu-item"]
+    li_classes << "pure-menu-selected" if active
+    li_classes << "pure-menu-disabled" if disabled
+    li_classes << "menu-item-divided" if separated
 
     link_params = {
-      class: 'pure-menu-link',
-      method: method
+      class: "pure-menu-link",
+      method: method,
     }.compact
 
     content_tag :li, class: li_classes do
@@ -189,22 +193,22 @@ module ComponentHelper
   def ui_content_container(grid_size_small: 1, grid_size_big: 1, &block)
     current_grid_size_stack.push({
       small: grid_size_small,
-      big: grid_size_big
+      big: grid_size_big,
     })
-    content = content_tag(:div, class: 'pure-g', &block)
+    content = content_tag(:div, class: "pure-g", &block)
     current_grid_size_stack.pop
     content
   end
 
   def ui_editable_content_section(title:, object:, field:, &block)
-    render(layout: 'shared/inplace_editor', locals: { title: title, object: object, field: field }, &block)
+    render(layout: "shared/inplace_editor", locals: { title: title, object: object, field: field }, &block)
   end
 
-  def ui_content_title(title=nil, &block)
+  def ui_content_title(title = nil, &)
     if block_given?
-      content_tag(:h2, class: 'content-subhead', &block)
+      content_tag(:h2, class: "content-subhead", &)
     else
-      content_tag(:h2, title, class: 'content-subhead')
+      content_tag(:h2, title, class: "content-subhead")
     end
   end
 
@@ -217,7 +221,7 @@ module ComponentHelper
 
     grid_classes = [
       grid_class(grid_size_small, current_grid_sizes[:small]),
-      grid_class(grid_size_big, current_grid_sizes[:big], 'sm')
+      grid_class(grid_size_big, current_grid_sizes[:big], "sm")
     ].uniq
 
     content_tag(:div, content, class: grid_classes)
@@ -239,14 +243,14 @@ module ComponentHelper
     current_grid_size_stack.last
   end
 
-  def grid_class(element_size, grid_size, media_size=nil)
+  def grid_class(element_size, grid_size, media_size = nil)
     raise "element too large for grid" if element_size > grid_size
 
     if media_size
       "pure-u-#{media_size}-#{element_size}-#{grid_size}"
-    else media_size
+    else
       "pure-u-#{element_size}-#{grid_size}"
     end
   end
-
 end
+# rubocop:enable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists

@@ -1,5 +1,6 @@
-class AttemptsController < AuthenticatedController
+# frozen_string_literal: true
 
+class AttemptsController < AuthenticatedController
   def create
     card = Card.find(params.require(:card_id))
     if card.answer == params[:attempt]
@@ -9,5 +10,4 @@ class AttemptsController < AuthenticatedController
       redirect_to card_path(card), error: "Wrong"
     end
   end
-
 end

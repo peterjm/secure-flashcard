@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLastSuccessfulAttemptAtToCards < ActiveRecord::Migration[5.1]
   def change
     add_column :cards, :last_successful_attempt_at, :datetime

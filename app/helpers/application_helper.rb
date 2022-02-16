@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def application_name
     "Secure Flashcards"
@@ -6,7 +8,7 @@ module ApplicationHelper
   def head_title
     prefix = "DEV " if Rails.env.development?
     title = page_title ? "#{application_name}: #{page_title}" : application_name
-    [prefix, title].join(' ')
+    [prefix, title].join(" ")
   end
 
   def page_title
@@ -23,10 +25,10 @@ module ApplicationHelper
   end
 
   def cards_section?
-    controller_name == 'cards' && action_name == 'index'
+    controller_name == "cards" && action_name == "index"
   end
 
   def new_card_section?
-    controller_name == 'cards' && action_name == 'new'
+    controller_name == "cards" && action_name == "new"
   end
 end

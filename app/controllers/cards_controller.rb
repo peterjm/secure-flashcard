@@ -1,5 +1,6 @@
-class CardsController < AuthenticatedController
+# frozen_string_literal: true
 
+class CardsController < AuthenticatedController
   def index
     @cards = Card.all
   end
@@ -41,5 +42,4 @@ class CardsController < AuthenticatedController
   def card_params
     params.require(:card).permit(:question, :answer)
   end
-
 end
