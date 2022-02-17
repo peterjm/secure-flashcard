@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 class Authenticator
-  class_attribute :google_account
+  attr_reader :session, :allowed_account
 
-  def self.google_account
-    @google_account || Rails.application.credentials.google.allowed_account
-  end
-
-  attr_reader :session
-
-  def initialize(session)
+  def initialize(
+    session,
+    account: Rails.application.credentials.google.allowed_account
+  )
     @session = session
+    @allowed_account = account
   end
 
-  def authenticate(data)
-    log_in if correct_google_account?(data)
-  end
-
-  def log_in
-    session[:logged_in] = true
+  def log_in(account)
+    if account == allowed_account
+      session[:logged_in] = true
+    else
+      false
+    end
   end
 
   def log_out
@@ -27,11 +25,5 @@ class Authenticator
 
   def logged_in?
     !!session[:logged_in]
-  end
-
-  private
-
-  def correct_google_account?(account)
-    account == self.class.google_account
   end
 end
