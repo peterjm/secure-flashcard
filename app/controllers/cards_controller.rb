@@ -19,7 +19,7 @@ class CardsController < AuthenticatedController
       redirect_to card_path(card)
     else
       @card = card
-      render :new
+      render :new, status: :bad_request
     end
   end
 
@@ -29,11 +29,11 @@ class CardsController < AuthenticatedController
 
   def update
     card = Card.find(params.require(:id))
-    if card.update_attributes(card_params)
+    if card.update(card_params)
       redirect_to card_path(card)
     else
       @card = card
-      render :edit
+      render :edit, status: :bad_request
     end
   end
 
