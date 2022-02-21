@@ -15,4 +15,4 @@ Rails.application.config.assets.version = "1.0"
 
 # This setting is recommended by Heroku
 # https://devcenter.heroku.com/articles/rails-asset-pipeline#compile-set-to-true-in-production
-Rails.application.config.assets.compile = false
+Rails.application.config.assets.compile = !Rails.env.production?

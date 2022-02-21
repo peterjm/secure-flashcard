@@ -16,7 +16,7 @@ class Card < ApplicationRecord
 
   def answer=(value)
     self.last_successful_attempt_at = nil
-    self.answer_encrypted = BCrypt::Password.create(value)
+    self.answer_encrypted = value.presence && BCrypt::Password.create(value)
   end
 
   def mark_successful_attempt
