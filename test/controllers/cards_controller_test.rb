@@ -82,7 +82,7 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   test "#update renders when error occurs" do
     card = FactoryBot.create(:card)
     assert_no_difference(-> { Card.count }) do
-      put card_path(card), params: { card: {  question: "", answer: "jello" } }
+      put card_path(card), params: { card: { question: "", answer: "jello" } }
     end
     assert_response :bad_request
   end
