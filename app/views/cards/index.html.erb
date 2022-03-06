@@ -1,11 +1,9 @@
 <% set_page_title 'Cards' %>
 
-<%= ui_content_container do %>
-  <%= ui_content_section do %>
-    <ul>
-      <% @cards.each do |card| %>
-        <li><%= link_to card.question, card_path(card) %></li>
-      <% end %>
-    </ul>
-  <% end %>
-<% end %>
+<div class="md:flex w-full max-w-lg">
+  <ul class="list-disc">
+    <% @cards.each do |card| %>
+      <li class="pb-2"><%= link_to card.question, card_path(card) %></li>
+    <% end %>
+  </ul>
+</div>

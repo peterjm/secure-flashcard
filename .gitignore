@@ -29,7 +29,12 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
+# precompiled assets
 /public/assets
+
+# Tailwind CSS builds
+/app/assets/builds/*
+!/app/assets/builds/.keep
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key

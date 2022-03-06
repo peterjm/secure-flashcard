@@ -1,22 +1,19 @@
 <% set_page_title @card.question %>
 
 <% content_for :side_menu do %>
-  <%= ui_side_menu_link('Edit this card', edit_card_path(@card), separated: true) %>
+  <%= ui_side_menu_link('Edit this card', edit_card_path(@card)) %>
 <% end %>
 
-<%= ui_content_container do %>
-  <%= ui_content_section do %>
-    <%= ui_form(path: card_attempts_path(@card), layout: ComponentHelper::FORM_ALIGNED) do |f| %>
-      <%= ui_password_field(name: "attempt", label: "Answer", html_options: { autofocus: true }) %>
-      <%= ui_submit("Try") %>
-    <% end %>
-
-    <p>
+<%= ui_form(path: card_attempts_path(@card)) do |f| %>
+  <%= ui_password_field(name: "attempt", label: "Answer", options: { autofocus: true }) %>
+  <%= ui_submit("Try") %>
+  <%= ui_field_without_label do %>
+    <span class="text-sm">
       <% if @card.last_successful_attempt_at %>
         Last successful attempt was <%= distance_of_time_in_words(Time.now, @card.last_successful_attempt_at) %> ago
       <% else %>
         Never successfully attempted
       <% end %>
-    </p>
+    </span>
   <% end %>
 <% end %>

@@ -7,11 +7,16 @@ gem "rails", "~> 7.0"
 
 gem "bcrypt"
 gem "bootsnap", require: false
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 gem "puma"
 
+# Front-end
+gem "font-awesome-rails"
 gem "importmap-rails"
 gem "sprockets-rails"
 gem "stimulus-rails"
+gem "tailwindcss-rails"
 gem "turbo-rails"
 
 group :production do
@@ -19,6 +24,7 @@ group :production do
 end
 
 group :development do
+  gem "foreman"
   gem "rubocop"
   gem "rubocop-rails"
   gem "web-console"
@@ -32,7 +38,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-
-gem "font-awesome-rails"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"

@@ -22,6 +22,9 @@ Style/TrailingCommaInHashLiteral:
 Style/HashSyntax:
   EnforcedShorthandSyntax: never
 
+Style/WordArray:
+  Enabled: true
+
 Layout/LineLength:
   Max: 120
 

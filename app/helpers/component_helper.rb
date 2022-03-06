@@ -2,48 +2,71 @@
 
 # rubocop:disable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists
 module ComponentHelper
-  FORM_ALIGNED = "aligned"
-  FORM_COMPACT = "compact"
+  def ui_button_classes(size: "normal")
+    classes = %w[
+      bg-gray-500
+      hover:bg-gray-800
+      text-white
+      font-bold
+      rounded
+      shadow
+      focus:shadow-outline
+      focus:outline-none
+    ]
 
-  def ui_button(text, path, size: "normal", method: nil, turbo: nil)
-    button_class = case size
+    classes += case size
+    when "normal"
+      %w[py-2 px-4]
     when "xlarge"
-      "button-xlarge"
+      %w[text-4xl py-4 px-6]
     end
 
-    link_params = { class: "pure-button pure-button-primary #{button_class}" }
+    classes
+  end
+
+  def ui_text_field_classes
+    %w[
+      bg-white
+      appearance-none
+      border-2
+      border-gray-200
+      rounded
+      w-full
+      py-2
+      px-4
+      text-gray-700
+      leading-tight
+      focus:outline-none
+      focus:border-blue-500
+    ]
+  end
+
+  def ui_button(text, path, size: "normal", method: nil, turbo: nil)
+    link_params = { class: ui_button_classes(size: size) }
     if turbo
       link_params[:data] = { turbo_method: method }
     else
       link_params[:data] = { turbo: false }
       link_params[:method] = method
     end
+
     button_to(text, path, **link_params)
   end
 
-  def ui_form(path: nil, layout: nil, method: :post, object: nil, &block)
+  def ui_form(path: nil, method: :post, object: nil, &block)
     @form_stack ||= []
 
-    form_class = case layout
-    when FORM_ALIGNED
-      "form-aligned"
-    when FORM_COMPACT
-      "form-compact"
-    end
+    form_classes = %w[w-full max-w-xl]
 
     form_content = if object
-      form_for(object, html: { class: "pure-form #{form_class}" }) do |f|
-        @form_stack << [f, layout]
-        ui_form_wrapper do
-          block.call(f)
-        end
+      form_for(object, html: { class: form_classes }) do |f|
+        @form_stack << f
+        block.call(f)
       end
     else
-      @form_stack << [nil, layout]
-      form_tag(path, method: method, class: "pure-form #{form_class}") do
-        ui_form_wrapper do
-          block.call
-        end
+      @form_stack << nil
+      form_tag(path, method: method, class: form_classes) do
+        block.call
       end
     end
 
@@ -52,16 +75,8 @@ module ComponentHelper
     form_content
   end
 
-  def ui_form_wrapper(&block)
-    case current_form_layout
-    when FORM_ALIGNED
-      ui_content_container(grid_size_big: 4, &block)
-    else
-      block.call
-    end
-  end
-
-  def ui_password_field(name:, value: nil, label: nil, html_options: {})
+  def ui_password_field(name:, value: nil, label: nil, options: {})
+    html_options = options.merge(class: ui_text_field_classes)
     ui_field_with_label(label, name) do
       if current_form
         current_form.password_field(name, html_options)
@@ -71,7 +86,8 @@ module ComponentHelper
     end
   end
 
-  def ui_text_field(name:, value: nil, label: nil, html_options: {})
+  def ui_text_field(name:, value: nil, label: nil, options: {})
+    html_options = options.merge(class: ui_text_field_classes)
     ui_field_with_label(label, name) do
       if current_form
         current_form.text_field(name, html_options)
@@ -81,7 +97,8 @@ module ComponentHelper
     end
   end
 
-  def ui_text_area(name:, value: nil, label: nil, html_options: {})
+  def ui_text_area(name:, value: nil, label: nil, options: {})
+    html_options = options.merge(class: ui_text_field_classes)
     ui_field_with_label(label, name) do
       if current_form
         current_form.text_area(name, html_options)
@@ -102,106 +119,82 @@ module ComponentHelper
     end
   end
 
-  def ui_search_field(name:, value: nil, label: nil, html_options: {})
-    html_options = html_options.merge(class: ["pure-input-rounded", html_options[:class]].compact.join(" "))
-
-    ui_field_with_label(label, name) do
-      if current_form
-        current_form.search_field(name, html_options)
+  def ui_field_with_label(label, name, &)
+    content_tag(:div, class: %w[md:flex md:items-center mb-4]) do
+      if label
+        ui_label_wrapper { ui_label(label, name) } + ui_field_wrapper(&)
       else
-        search_field_tag(name, value, html_options)
+        ui_field_wrapper(&)
       end
     end
   end
 
-  def ui_field_with_label(label, name, &)
-    if label
-      ui_label_wrapper { ui_label(label, name) } + ui_field_wrapper(&)
-    else
-      ui_field_wrapper(&)
+  def ui_field_without_label(&)
+    empty_block = -> {}
+    content_tag(:div, class: %w[md:flex md:items-center mb-4]) do
+      ui_label_wrapper(&empty_block) + ui_field_wrapper(&)
     end
   end
 
   def ui_label(label, name)
     return unless label
 
+    label_classes = %w[
+      block
+      text-lg
+      md:text-right
+      mb-1
+      md:mb-0
+      pr-4
+    ]
+
     if current_form
-      current_form.label(name)
+      current_form.label(name, class: label_classes)
     else
-      label_tag(name, label)
+      label_tag(name, label, class: label_classes)
     end
   end
 
   def ui_label_wrapper(&)
-    case current_form_layout
-    when FORM_ALIGNED
-      ui_content_section(grid_size_big: 1) do
-        content_tag(:div, class: "form-label", &)
-      end
-    else
-      content_tag(:div, class: "form-label", &)
-    end
+    content_tag(:div, class: ["md:w-1/4"], &)
   end
 
   def ui_field_wrapper(&)
-    case current_form_layout
-    when FORM_ALIGNED
-      ui_content_section(grid_size_big: 3) do
-        content_tag(:div, class: "form-field", &)
-      end
-    else
-      content_tag(:div, class: "form-field", &)
-    end
+    content_tag(:div, class: ["md:w-3/4"], &)
   end
 
   def ui_submit(text)
-    ui_submit_wrapper do
+    classes = ui_button_classes
+
+    ui_field_without_label do
       if current_form
-        current_form.submit(text, class: "pure-button pure-button-primary")
+        current_form.submit(text, class: classes)
       else
-        submit_tag(text, class: "pure-button pure-button-primary")
+        submit_tag(text, class: classes)
       end
     end
   end
 
-  def ui_submit_wrapper(&block)
-    case current_form_layout
-    when FORM_ALIGNED
-      empty_block = -> {}
-      ui_content_section(grid_size_big: 1, &empty_block) + ui_content_section(grid_size_big: 3, &block)
+  def ui_side_menu_link(text, path, active: false, method: :get)
+    link_classes = %w[inline-block py-2 px-4 no-underline]
+    link_classes += if active
+      %w[text-white]
     else
-      block.call
+      %w[text-gray-600 hover:text-gray-200 hover:text-underline]
     end
-  end
-
-  def ui_side_menu_link(text, path, active: false, separated: false, disabled: false, method: nil)
-    li_classes = ["pure-menu-item"]
-    li_classes << "pure-menu-selected" if active
-    li_classes << "pure-menu-disabled" if disabled
-    li_classes << "menu-item-divided" if separated
 
     link_params = {
-      class: "pure-menu-link",
+      class: link_classes,
       method: method,
     }.compact
 
-    content_tag :li, class: li_classes do
-      link_to text, path, link_params
+    content_tag :li, class: "mr-3" do
+      if method == :get
+        link_to text, path, link_params
+      else
+        button_to text, path, link_params
+      end
     end
-  end
-
-  def ui_content_container(grid_size_small: 1, grid_size_big: 1, &block)
-    current_grid_size_stack.push({
-      small: grid_size_small,
-      big: grid_size_big,
-    })
-    content = content_tag(:div, class: "pure-g", &block)
-    current_grid_size_stack.pop
-    content
-  end
-
-  def ui_editable_content_section(title:, object:, field:, &block)
-    render(layout: "shared/inplace_editor", locals: { title: title, object: object, field: field }, &block)
   end
 
   def ui_content_title(title = nil, &)
@@ -212,45 +205,8 @@ module ComponentHelper
     end
   end
 
-  def ui_content_section(title: nil, grid_size_small: 1, grid_size_big: 1, &block)
-    content = if title
-      ui_content_title(title) + capture(&block)
-    else
-      capture(&block)
-    end
-
-    grid_classes = [
-      grid_class(grid_size_small, current_grid_sizes[:small]),
-      grid_class(grid_size_big, current_grid_sizes[:big], "sm")
-    ].uniq
-
-    content_tag(:div, content, class: grid_classes)
-  end
-
   def current_form
-    @form_stack&.last&.first
-  end
-
-  def current_form_layout
-    @form_stack&.last&.last
-  end
-
-  def current_grid_size_stack
-    @current_grid_size_stack ||= []
-  end
-
-  def current_grid_sizes
-    current_grid_size_stack.last
-  end
-
-  def grid_class(element_size, grid_size, media_size = nil)
-    raise "element too large for grid" if element_size > grid_size
-
-    if media_size
-      "pure-u-#{media_size}-#{element_size}-#{grid_size}"
-    else
-      "pure-u-#{element_size}-#{grid_size}"
-    end
+    @form_stack&.last
   end
 end
 # rubocop:enable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists
