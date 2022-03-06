@@ -1,19 +1,16 @@
 <% content_for :application_content do %>
-  <div id="layout">
-    <div id="main">
-      <% if page_heading %>
-        <div class="header">
-          <h1><%= page_heading %></h1>
-        </div>
-      <% end %>
+  <div class="w-screen mt-24">
+    <% if page_heading %>
+      <h1 class="flex justify-center w-full leading-tight text-5xl mt-0 mb-2">
+        <%= page_heading %>
+      </h1>
+    <% end %>
 
-      <div class="content">
-        <%= content_for?(:main_content) ? yield(:main_content) : yield %>
-      </div>
-    </div>
-
-    <%= render 'layouts/side_menu' %>
+  <div class="flex flex-wrap w-full justify-center text-lg">
+    <%= content_for?(:main_content) ? yield(:main_content) : yield %>
   </div>
+
+  <%= render 'layouts/side_menu' %>
 <% end %>
 
 <%= render template: "layouts/application" %>
