@@ -12,10 +12,8 @@ gem "omniauth-rails_csrf_protection"
 gem "puma"
 
 # Front-end
-gem "font-awesome-rails"
 gem "importmap-rails"
 gem "sprockets-rails"
-gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "turbo-rails"
 
