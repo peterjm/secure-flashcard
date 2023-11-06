@@ -25,9 +25,8 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#show requires valid card id" do
-    assert_raise ActiveRecord::RecordNotFound do
-      get card_path(1)
-    end
+    get card_path(1)
+    assert_response :not_found
   end
 
   test "#new renders" do
@@ -42,9 +41,8 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#edit requires valid card id" do
-    assert_raise ActiveRecord::RecordNotFound do
-      get edit_card_path(1)
-    end
+    get edit_card_path(1)
+    assert_response :not_found
   end
 
   test "#create makes a new card" do
@@ -64,9 +62,8 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#update requires valid card id" do
-    assert_raise ActiveRecord::RecordNotFound do
-      put card_path(1)
-    end
+    put card_path(1)
+    assert_response :not_found
   end
 
   test "#update updates card" do
