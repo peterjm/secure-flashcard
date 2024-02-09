@@ -14,9 +14,8 @@ class AttemptsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#create requires valid card id" do
-    assert_raise ActiveRecord::RecordNotFound do
-      post card_attempts_path(1)
-    end
+    post card_attempts_path(1)
+    assert_response :not_found
   end
 
   test "#create marks the card as successful when attempt is correct" do
