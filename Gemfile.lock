@@ -178,6 +178,7 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    prism (1.2.0)
     psych (5.2.0)
       stringio
     puma (6.4.3)
@@ -224,6 +225,8 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
+    rbs (3.6.1)
+      logger
     rdoc (6.7.0)
       psych (>= 4.0.0)
     regexp_parser (2.9.2)
@@ -246,11 +249,17 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.52.0, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
+    ruby-lsp (0.22.1)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 4)
+      sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
     securerandom (0.3.2)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    sorbet-runtime (0.5.11647)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -310,6 +319,7 @@ DEPENDENCIES
   rails (~> 7.0)
   rubocop
   rubocop-rails
+  ruby-lsp
   sprockets-rails
   sqlite3
   tailwindcss-rails
