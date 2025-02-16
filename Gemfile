@@ -16,7 +16,7 @@ gem "ruby-lsp"
 # Front-end
 gem "importmap-rails"
 gem "sprockets-rails"
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 3.3.1"
 gem "turbo-rails"
 
 group :development do
