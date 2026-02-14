@@ -30,3 +30,9 @@ group :development, :test do
   gem "debug"
   gem "factory_bot_rails"
 end
+
+group :test do
+  # This is only necessary until the next minor version bump of Rails.
+  # If you're reading this, you can probably remove this restriction.
+  gem "minitest", "~> 5.0"
+end
