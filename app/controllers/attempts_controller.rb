@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AttemptsController < AuthenticatedController
+  rate_limit to: 10, within: 1.minute, only: :create, by: -> { "card:#{params[:card_id]}" }
+
   def create
     card = Card.find(params.require(:card_id))
     if card.answer == params[:attempt]
