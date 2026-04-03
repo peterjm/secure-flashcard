@@ -36,3 +36,5 @@ group :test do
   # If you're reading this, you can probably remove this restriction.
   gem "minitest", "~> 5.0"
 end
+
+gem "stimulus-rails", "~> 1.3"
