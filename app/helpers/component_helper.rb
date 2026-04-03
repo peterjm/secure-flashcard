@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists
 module ComponentHelper
   def ui_button_classes(size: "normal")
     classes = %w[
@@ -41,6 +40,17 @@ module ComponentHelper
     ]
   end
 
+  def ui_label_classes
+    %w[
+      block
+      text-lg
+      md:text-right
+      mb-1
+      md:mb-0
+      pr-4
+    ]
+  end
+
   def ui_button(text, path, size: "normal", method: nil, turbo: nil)
     link_params = { class: ui_button_classes(size: size) }
     if turbo
@@ -53,76 +63,40 @@ module ComponentHelper
     button_to(text, path, **link_params)
   end
 
-  def ui_form(path: nil, method: :post, object: nil, &block)
-    @form_stack ||= []
-
-    form_classes = %w[w-full max-w-xl]
-
-    form_content = if object
-      form_for(object, html: { class: form_classes }) do |f|
-        @form_stack << f
-        block.call(f)
-      end
-    else
-      @form_stack << nil
-      form_tag(path, method: method, class: form_classes) do
-        block.call
-      end
+  def ui_form(path: nil, object: nil, &block)
+    form_args = object ? { model: object } : { url: path }
+    form_with(**form_args, class: "w-full max-w-xl") do |f|
+      @ui_form = f
+      block.call(f)
     end
-
-    @form_stack.pop
-
-    form_content
+  ensure
+    @ui_form = nil
   end
 
-  def ui_password_field(name:, value: nil, label: nil, options: {})
+  def ui_text_field(name:, label: nil, options: {})
     html_options = options.merge(class: ui_text_field_classes)
     ui_field_with_label(label, name) do
-      if current_form
-        current_form.password_field(name, html_options)
-      else
-        password_field_tag(name, value, html_options)
-      end
+      @ui_form.text_field(name, html_options)
     end
   end
 
-  def ui_text_field(name:, value: nil, label: nil, options: {})
+  def ui_password_field(name:, label: nil, options: {})
     html_options = options.merge(class: ui_text_field_classes)
     ui_field_with_label(label, name) do
-      if current_form
-        current_form.text_field(name, html_options)
-      else
-        text_field_tag(name, value, html_options)
-      end
+      @ui_form.password_field(name, html_options)
     end
   end
 
-  def ui_text_area(name:, value: nil, label: nil, options: {})
-    html_options = options.merge(class: ui_text_field_classes)
-    ui_field_with_label(label, name) do
-      if current_form
-        current_form.text_area(name, html_options)
-      else
-        text_area(name, value, html_options)
-      end
-    end
-  end
-
-  def ui_select(name:, options:, value: nil, label: nil, include_blank: nil, html_options: {})
-    ui_field_with_label(label, name) do
-      if current_form
-        current_form.select(name, options, { include_blank: include_blank }, html_options)
-      else
-        options = options_for_select(options, value)
-        select_tag(name, options, html_options.merge(include_blank: include_blank))
-      end
+  def ui_submit(text)
+    ui_field_without_label do
+      @ui_form.submit(text, class: ui_button_classes)
     end
   end
 
   def ui_field_with_label(label, name, &)
     content_tag(:div, class: %w[md:flex md:items-center mb-4]) do
       if label
-        ui_label_wrapper { ui_label(label, name) } + ui_field_wrapper(&)
+        ui_label_wrapper { @ui_form.label(name, label, class: ui_label_classes) } + ui_field_wrapper(&)
       else
         ui_field_wrapper(&)
       end
@@ -130,48 +104,8 @@ module ComponentHelper
   end
 
   def ui_field_without_label(&)
-    empty_block = -> {}
     content_tag(:div, class: %w[md:flex md:items-center mb-4]) do
-      ui_label_wrapper(&empty_block) + ui_field_wrapper(&)
-    end
-  end
-
-  def ui_label(label, name)
-    return unless label
-
-    label_classes = %w[
-      block
-      text-lg
-      md:text-right
-      mb-1
-      md:mb-0
-      pr-4
-    ]
-
-    if current_form
-      current_form.label(name, class: label_classes)
-    else
-      label_tag(name, label, class: label_classes)
-    end
-  end
-
-  def ui_label_wrapper(&)
-    content_tag(:div, class: ["md:w-1/4"], &)
-  end
-
-  def ui_field_wrapper(&)
-    content_tag(:div, class: ["md:w-3/4"], &)
-  end
-
-  def ui_submit(text)
-    classes = ui_button_classes
-
-    ui_field_without_label do
-      if current_form
-        current_form.submit(text, class: classes)
-      else
-        submit_tag(text, class: classes)
-      end
+      ui_label_wrapper {} + ui_field_wrapper(&)
     end
   end
 
@@ -197,16 +131,13 @@ module ComponentHelper
     end
   end
 
-  def ui_content_title(title = nil, &)
-    if block_given?
-      content_tag(:h2, class: "content-subhead", &)
-    else
-      content_tag(:h2, title, class: "content-subhead")
-    end
+  private
+
+  def ui_label_wrapper(&)
+    content_tag(:div, class: ["md:w-1/4"], &)
   end
 
-  def current_form
-    @form_stack&.last
+  def ui_field_wrapper(&)
+    content_tag(:div, class: ["md:w-3/4"], &)
   end
 end
-# rubocop:enable Metrics/ModuleLength, Metrics/MethodLength, Metrics/ParameterLists
