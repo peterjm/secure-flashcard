@@ -31,6 +31,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "capybara"
   # This is only necessary until the next minor version bump of Rails.
   # If you're reading this, you can probably remove this restriction.
   gem "minitest", "~> 5.0"
