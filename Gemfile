@@ -15,7 +15,7 @@ gem "ruby-lsp"
 
 # Front-end
 gem "importmap-rails"
-gem "sprockets-rails"
+gem "propshaft"
 gem "tailwindcss-rails"
 gem "turbo-rails"
 
