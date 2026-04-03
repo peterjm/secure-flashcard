@@ -11,7 +11,6 @@ gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 gem "puma"
 gem "sqlite3"
-gem "ruby-lsp"
 
 # Front-end
 gem "importmap-rails"
