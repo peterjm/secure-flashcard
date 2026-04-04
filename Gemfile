@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 ruby "4.0.1"
 
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.0"
 
 gem "bcrypt"
 gem "bootsnap", require: false
@@ -32,9 +32,6 @@ end
 
 group :test do
   gem "capybara"
-  # This is only necessary until the next minor version bump of Rails.
-  # If you're reading this, you can probably remove this restriction.
-  gem "minitest", "~> 5.0"
 end
 
 gem "stimulus-rails", "~> 1.3"
