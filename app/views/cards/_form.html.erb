@@ -1,6 +1,6 @@
 <%= ui_form(object: @card) do |f| %>
-  <%= ui_text_field(name: "question", label: "Question") %>
-  <%= ui_password_field(name: "answer", label: "Answer") %>
+  <%= f.text_field(name: "question", label: "Question") %>
+  <%= f.password_field(name: "answer", label: "Answer") %>
 
-  <%= ui_submit("Submit") %>
+  <%= f.submit("Submit") %>
 <% end %>
