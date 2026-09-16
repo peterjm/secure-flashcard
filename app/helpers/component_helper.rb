@@ -109,7 +109,7 @@ module ComponentHelper
     end
   end
 
-  def ui_side_menu_link(text, path, active: false, method: :get)
+  def ui_side_menu_link(text, path, active: false, method: :get, confirm: nil)
     link_classes = %w[inline-block py-2 px-4 no-underline]
     link_classes += if active
       %w[text-white]
@@ -120,6 +120,7 @@ module ComponentHelper
     link_params = {
       class: link_classes,
       method: method,
+      form: ({ data: { turbo_confirm: confirm } } if confirm),
     }.compact
 
     content_tag :li, class: "mr-3" do

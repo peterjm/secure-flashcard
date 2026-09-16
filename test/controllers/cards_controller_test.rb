@@ -83,4 +83,17 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :bad_request
   end
+
+  test "#destroy requires valid card id" do
+    delete card_path(1)
+    assert_response :not_found
+  end
+
+  test "#destroy removes card" do
+    card = FactoryBot.create(:card)
+    assert_difference(-> { Card.count }, -1) do
+      delete card_path(card)
+    end
+    assert_redirected_to cards_path
+  end
 end
