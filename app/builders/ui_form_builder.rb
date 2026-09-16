@@ -51,7 +51,7 @@ class UiFormBuilder < ActionView::Helpers::FormBuilder
 
   private
 
-  def button_classes(size: "normal")
+  def button_classes(size: "normal") # rubocop:disable Metrics/MethodLength
     classes = %w[
       bg-gray-500
       hover:bg-gray-800
@@ -73,7 +73,7 @@ class UiFormBuilder < ActionView::Helpers::FormBuilder
     classes
   end
 
-  def text_field_classes
+  def text_field_classes # rubocop:disable Metrics/MethodLength
     %w[
       bg-white
       appearance-none
