@@ -13,6 +13,10 @@ class CardsController < AuthenticatedController
     @card = Card.new
   end
 
+  def edit
+    @card = Card.find(params.require(:id))
+  end
+
   def create
     card = Card.new(card_params)
     if card.save
@@ -21,10 +25,6 @@ class CardsController < AuthenticatedController
       @card = card
       render :new, status: :bad_request
     end
-  end
-
-  def edit
-    @card = Card.find(params.require(:id))
   end
 
   def update
@@ -46,6 +46,6 @@ class CardsController < AuthenticatedController
   private
 
   def card_params
-    params.require(:card).permit(:question, :answer)
+    params.expect(card: %i[question answer])
   end
 end

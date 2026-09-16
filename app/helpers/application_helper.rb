@@ -12,16 +12,16 @@ module ApplicationHelper
   end
 
   def page_title
-    @page_title
+    content_for(:page_title)
   end
 
   def page_heading
-    @page_heading
+    content_for(:page_heading)
   end
 
   def set_page_title(title, heading: true)
-    @page_title = title
-    @page_heading = title if heading
+    content_for(:page_title, title)
+    content_for(:page_heading, title) if heading
   end
 
   def cards_section?

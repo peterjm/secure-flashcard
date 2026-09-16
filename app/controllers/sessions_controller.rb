@@ -12,12 +12,12 @@ class SessionsController < ApplicationController
     if log_in!(email)
       redirect_to_return_path
     else
-      render "new", status: :unprocessable_entity
+      render "new", status: :unprocessable_content
     end
   end
 
   def error
-    render "new", status: :unprocessable_entity
+    render "new", status: :unprocessable_content
   end
 
   def destroy
