@@ -13,7 +13,7 @@ class FlashcardFlowTest < ApplicationSystemTestCase
   end
 
   test "logging in and seeing a flashcard" do
-    card = FactoryBot.create(:card, question: "Capital of France?", answer: "Paris")
+    FactoryBot.create(:card, question: "Capital of France?", answer: "Paris")
 
     visit root_path
     assert_current_path login_path
@@ -23,7 +23,7 @@ class FlashcardFlowTest < ApplicationSystemTestCase
   end
 
   test "answering a flashcard correctly" do
-    card = FactoryBot.create(:card, question: "Capital of France?", answer: "Paris")
+    FactoryBot.create(:card, question: "Capital of France?", answer: "Paris")
 
     log_in_via_system
     assert_text "Capital of France?"
@@ -57,7 +57,7 @@ class FlashcardFlowTest < ApplicationSystemTestCase
   end
 
   test "editing a card" do
-    card = FactoryBot.create(:card, question: "Old question", answer: "answer")
+    FactoryBot.create(:card, question: "Old question", answer: "answer")
 
     log_in_via_system
     click_on "Cards"

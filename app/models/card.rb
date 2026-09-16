@@ -20,6 +20,6 @@ class Card < ApplicationRecord
   end
 
   def mark_successful_attempt
-    update!(last_successful_attempt_at: Time.now)
+    update!(last_successful_attempt_at: Time.zone.now)
   end
 end
