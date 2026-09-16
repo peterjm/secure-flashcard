@@ -1,3 +1,7 @@
 <% set_page_title "Edit: #{@card.question}" %>
 
+<% content_for :side_menu do %>
+  <%= ui_side_menu_link('Delete this card', card_path(@card), method: :delete) %>
+<% end %>
+
 <%= render 'form' %>
