@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 module ComponentHelper
+  def ui_button(text, path, size: "normal", method: nil, turbo: nil)
+    link_params = { class: ui_button_classes(size: size) }
+    if turbo
+      link_params[:data] = { turbo_method: method }
+    else
+      link_params[:data] = { turbo: false }
+      link_params[:method] = method
+    end
+
+    button_to(text, path, **link_params)
+  end
+
+
   def ui_form(path: nil, object: nil, &)
     form_args = object ? { model: object } : { url: path }
     form_with(**form_args, builder: UiFormBuilder, class: "w-full max-w-xl", &)
@@ -15,6 +28,28 @@ module ComponentHelper
         button_to text, path, link_params
       end
     end
+  end
+
+  def ui_button_classes(size: "normal") # rubocop:disable Metrics/MethodLength
+    classes = %w[
+      bg-gray-500
+      hover:bg-gray-800
+      text-white
+      font-bold
+      rounded
+      shadow
+      focus:shadow-outline
+      focus:outline-none
+    ]
+
+    classes += case size
+    when "normal"
+      %w[py-2 px-4]
+    when "xlarge"
+      %w[text-4xl py-4 px-6]
+    end
+
+    classes
   end
 
   private
