@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 class UiFormBuilder < ActionView::Helpers::FormBuilder
-  def button(text, path, size: "normal", method: nil, turbo: nil)
-    link_params = { class: button_classes(size: size) }
-    if turbo
-      link_params[:data] = { turbo_method: method }
-    else
-      link_params[:data] = { turbo: false }
-      link_params[:method] = method
-    end
-
-    button_to(text, path, **link_params)
-  end
-
   def text_field(name:, label: nil, options: {})
     html_options = options.merge(class: text_field_classes)
     field_with_label(label, name) do
@@ -29,7 +17,7 @@ class UiFormBuilder < ActionView::Helpers::FormBuilder
 
   def submit(text)
     field_without_label do
-      super(text, class: button_classes)
+      super(text, class: @template.ui_button_classes)
     end
   end
 
@@ -50,28 +38,6 @@ class UiFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   private
-
-  def button_classes(size: "normal") # rubocop:disable Metrics/MethodLength
-    classes = %w[
-      bg-gray-500
-      hover:bg-gray-800
-      text-white
-      font-bold
-      rounded
-      shadow
-      focus:shadow-outline
-      focus:outline-none
-    ]
-
-    classes += case size
-    when "normal"
-      %w[py-2 px-4]
-    when "xlarge"
-      %w[text-4xl py-4 px-6]
-    end
-
-    classes
-  end
 
   def text_field_classes # rubocop:disable Metrics/MethodLength
     %w[
